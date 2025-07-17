@@ -17,6 +17,7 @@ export default function AboutSection() {
         mx-auto         // Centers the section horizontally
         mt-10           // Add some top margin to ensure space from the achievement box
       "
+      id="about"
     >
       <div className="flex-shrink-0 mb-8 lg:mb-0 lg:mr-10 max-w-[250px] w-full"> 
         <img src={iroLogo} alt="International Relations Office Graphic" className="w-full h-auto block" /> 

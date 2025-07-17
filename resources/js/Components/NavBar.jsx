@@ -4,12 +4,34 @@ import { useState } from 'react';
 import { router } from '@inertiajs/react';
 import { usePage } from '@inertiajs/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { motion } from 'framer-motion';
 import { faBell, faEnvelope, faUser, faRightFromBracket, faToolbox } from '@fortawesome/free-solid-svg-icons';
 
 export default function NavBar({ auth }) {
     const { component } = usePage();
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [showLogoutModal, setShowLogoutModal] = useState(false);
+
+    const Section = ({ children }) => (
+        <motion.div
+            initial={{ opacity: 0, y: 80 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 1.2, ease: 'easeOut' }}
+            className="my-24"
+        >
+            {children}
+        </motion.div>
+    );
+
+    const handleSmoothScroll = (e, targetId) => {
+        e.preventDefault();
+        const target = document.getElementById(targetId);
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
 
     return (
         <nav className="bg-[#101f41] px-8 py-3 flex items-center justify-between">
@@ -29,13 +51,46 @@ export default function NavBar({ auth }) {
             <div className="flex items-center space-x-8"> 
                 {component === 'Welcome' ? (
                     <>
-                        <div className="flex space-x-8 text-white text-sm font-medium">
-                            <Link href="/">Home</Link>
-                            <Link href="/about">About Us</Link>
-                            <Link href="/achievements">Achievements</Link>
-                            <Link href="/news">News</Link>
-                            <Link href="/faqs">FAQ'S</Link>
-                        </div>
+                        {/* okay na ba ganito yung animation for user accesibility */}
+                        <div className="flex space-x-8 text-white text-sm font-bold">
+                            <a
+                                href="#about"
+                                onClick={e => handleSmoothScroll(e, 'about')}
+                                className="relative text-white transition-all duration-300
+                                        after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-0 after:bg-white
+                                        hover:after:w-full after:transition-all after:duration-300"
+                            >
+                                About Us
+                            </a>
+                            <a
+                                href="#achievements"
+                                onClick={e => handleSmoothScroll(e, 'achievements')}
+                                className="relative text-white transition-all duration-300
+                                        after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-0 after:bg-white
+                                        hover:after:w-full after:transition-all after:duration-300"
+                            >
+                                Achievements
+                            </a>
+                            <a
+                                href="#news"
+                                onClick={e => handleSmoothScroll(e, 'news')}
+                                className="relative text-white transition-all duration-300
+                                        after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-0 after:bg-white
+                                        hover:after:w-full after:transition-all after:duration-300"
+                            >
+                                News
+                            </a>
+                            <a
+                                href="#faqs"
+                                onClick={e => handleSmoothScroll(e, 'faqs')}
+                                className="relative text-white transition-all duration-300
+                                        after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-0 after:bg-white
+                                        hover:after:w-full after:transition-all after:duration-300"
+                            >
+                                FAQ'S
+                            </a>
+                            </div>
+
 
                         {/* Authenticated: Profile Dropdown */}
                         <div className="relative">
@@ -87,40 +142,49 @@ export default function NavBar({ auth }) {
 
                                     {dropdownOpen && (
                                         <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg z-50">
-                                            <Link href="/notifications" className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                            {/* Show these only if role is 'client' */}
+                                            {auth.user.role === 'client' && (
+                                            <>
+                                                <Link href="/notifications" className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:bg-gray-100">
                                                 <FontAwesomeIcon icon={faBell} />
                                                 Notifications
-                                            </Link>
-                                            <Link href="/messages" className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                                </Link>
+                                                <Link href="/messages" className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:bg-gray-100">
                                                 <FontAwesomeIcon icon={faEnvelope} />
                                                 Messaging
-                                            </Link>
-                                            <Link href="/profile" className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:bg-gray-100">
-                                                <FontAwesomeIcon icon={faUser} />
-                                                Profile
-                                            </Link>
-
-                                            {/* Conditionally render Admin Tools */}
-                                            {auth.user.role === 'admin' && (
-                                                <Link
-                                                    href={route('admin.dashboard')}
-                                                    className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:bg-gray-100"
-                                                >
-                                                    <FontAwesomeIcon icon={faToolbox} />
-                                                    Admin Tools
                                                 </Link>
+                                            </>
                                             )}
 
-                                            <button
-                                                type="button"
-                                                className="flex items-center gap-2 w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100"
-                                                onClick={() => setShowLogoutModal(true)}
+                                            {/* Profile visible for all */}
+                                            <Link href="/profile" className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                            <FontAwesomeIcon icon={faUser} />
+                                            Profile
+                                            </Link>
+
+                                            {/* Admin tools visible only to admin */}
+                                            {auth.user.role === 'admin' && (
+                                            <Link
+                                                href={route('admin.dashboard')}
+                                                className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:bg-gray-100"
                                             >
-                                                <FontAwesomeIcon icon={faRightFromBracket} />
-                                                Logout
+                                                <FontAwesomeIcon icon={faToolbox} />
+                                                Admin Tools
+                                            </Link>
+                                            )}
+
+                                            {/* Logout button for everyone */}
+                                            <button
+                                            type="button"
+                                            className="flex items-center gap-2 w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100"
+                                            onClick={() => setShowLogoutModal(true)}
+                                            >
+                                            <FontAwesomeIcon icon={faRightFromBracket} />
+                                            Logout
                                             </button>
                                         </div>
                                     )}
+
 
                                 </div>
                             ) : (

@@ -36,7 +36,7 @@ export default function HeroSection() {
                 <div className="flex flex-col sm:flex-row justify-center gap-4">
                     {/* Apply Now Button */}
                     <button
-                        className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-full transition duration-300 ease-in-out transform hover:scale-105 shadow-lg"
+                        className="bg-orange-600 hover:bg-orange-700 text-white font-semibold py-3 px-8 rounded-full transition duration-300 ease-in-out transform hover:scale-105 shadow-lg"
                         onClick={() => console.log('Apply Now clicked!')} // Placeholder for actual navigation
                     >
                         Apply Now
@@ -44,12 +44,13 @@ export default function HeroSection() {
 
                     {/* Track Your Application Button */}
                     <button
-                        className="bg-transparent border-2 border-white hover:bg-white hover:text-blue-600 text-white font-semibold py-3 px-8 rounded-full transition duration-300 ease-in-out transform hover:scale-105 shadow-lg"
+                        className="bg-orange-400 border-2 border-orange-300 hover:bg-orange-400 hover:text-bolder text-bold font-semibold py-3 px-8 rounded-full transition duration-300 ease-in-out transform hover:scale-105 shadow-lg"
                         onClick={() => console.log('Track Your Application clicked!')} // Placeholder for actual navigation
                     >
                         Track Your Application
                     </button>
                 </div>
+
             </div>
         </section>
     );

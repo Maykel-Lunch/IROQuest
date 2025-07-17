@@ -14,6 +14,7 @@ export default function AchievementsSection() {
             text-center
             font-poppins
         "
+        id="achievements"
         >
         <div className="flex flex-col items-center mx-4 my-4 md:my-0"> 
             <span className="text-5xl font-bold text-gray-800 mb-1">50+</span> 
