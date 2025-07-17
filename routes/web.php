@@ -34,4 +34,8 @@ Route::get('/select-usertype', function () {
     return Inertia::render('Auth/SelectUserType');
 })->middleware('auth')->name('select.usertype');
 
+Route::get('/admin/dashboard', function () {
+    return Inertia::render('Auth/AdminDashboard');
+})->middleware(['auth'])->name('admin.dashboard');
+
 require __DIR__.'/auth.php';

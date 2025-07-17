@@ -102,14 +102,13 @@ export default function NavBar({ auth }) {
 
                                             {/* Conditionally render Admin Tools */}
                                             {auth.user.role === 'admin' && (
-                                                <button
-                                                    type="button"
-                                                    className="flex items-center gap-2 w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
-                                                    onClick={() => alert('Admin Tools coming soon!')}
+                                                <Link
+                                                    href={route('admin.dashboard')}
+                                                    className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:bg-gray-100"
                                                 >
                                                     <FontAwesomeIcon icon={faToolbox} />
                                                     Admin Tools
-                                                </button>
+                                                </Link>
                                             )}
 
                                             <button
