@@ -23,7 +23,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
     return (
         <>
             <Head title="Welcome" />
-            <NavBar />
+            <NavBar auth={auth} />
             <HeroSection />
             <AchievementsSection />
             <AboutSection />

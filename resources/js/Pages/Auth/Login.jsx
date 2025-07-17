@@ -35,7 +35,7 @@ export default function Login({ status, canResetPassword }) {
             <div className="flex flex-col items-center justify-center mb-6">
                 <img src={iroLogo} alt="IRO Logo" className="h-20 w-20 mb-4" />
                 <h1 className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-                    Login to Your Account
+                     Login to Your Account
                 </h1>
             </div>
             
@@ -121,7 +121,7 @@ export default function Login({ status, canResetPassword }) {
             
             <button
                 type="button"
-                onClick={() => alert('Google Login button clicked! (No backend configured)')}
+                onClick={() => window.location.href = route('google.redirect')}
                 className="w-full flex items-center justify-center px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200"
             >
                 {/* Font Awesome Google icon */}
