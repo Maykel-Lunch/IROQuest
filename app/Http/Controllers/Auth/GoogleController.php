@@ -29,6 +29,11 @@ class GoogleController extends Controller
 
         Auth::login($user);
 
+        // If usertype is not set, redirect to SelectUserType page
+        if (is_null($user->usertype)) {
+            return redirect()->route('select.usertype');
+        }
+
         return redirect()->route('welcome');
     }
 }

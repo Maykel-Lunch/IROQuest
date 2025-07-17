@@ -7,6 +7,7 @@ import ServiceSection from '@/Components/ServiceSection';
 import NewsSection from '@/Components/NewsSection';
 import FAQSection from '../Components/FAQSection';
 import FooterSection from '@/Components/FooterSection';
+import SelectUserType from './Auth/SelectUserType';
 
 export default function Welcome({ auth, laravelVersion, phpVersion }) {
     const handleImageError = () => {

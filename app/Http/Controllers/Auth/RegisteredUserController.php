@@ -48,6 +48,11 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
+        // Redirect to SelectUserType if usertype is not set
+        if (is_null($user->usertype)) {
+            return redirect()->route('select.usertype');
+        }
+
         return redirect(route('welcome', absolute: false));
     }
 }

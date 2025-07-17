@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserTypeController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -27,5 +28,10 @@ Route::middleware('auth')->group(function () {
 
 Route::get('auth/google', [GoogleController::class, 'redirect'])->name('google.redirect');
 Route::get('auth/google/callback', [GoogleController::class, 'callback'])->name('google.callback');
+
+Route::post('/register/usertype', [UserTypeController::class, 'store']);
+Route::get('/select-usertype', function () {
+    return Inertia::render('Auth/SelectUserType');
+})->middleware('auth')->name('select.usertype');
 
 require __DIR__.'/auth.php';
