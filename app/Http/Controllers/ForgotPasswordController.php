@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Carbon;
 use App\Models\User;
 use App\Mail\SendResetCode;
+use App\Models\PasswordResetToken;
 
 class ForgotPasswordController extends Controller
 {
@@ -20,16 +21,21 @@ class ForgotPasswordController extends Controller
             return back()->withErrors(['email' => 'Email not found.']);
         }
 
-        // Generate 6-digit code and save to DB
+        // Generate 6-digit code and save to password_reset_tokens table
         $code = random_int(100000, 999999);
-        $user->reset_code = $code;
-        $user->reset_code_expires_at = Carbon::now()->addMinutes(10);
-        $user->save();
+        PasswordResetToken::updateOrCreate(
+            ['email' => $user->email],
+            [
+                'reset_code' => $code,
+                'reset_code_expires_at' => now()->addMinutes(10),
+                'created_at' => now(),
+                'token' => '', 
+            ]
+        );
 
         // Send the email with the code
         Mail::to($user->email)->send(new SendResetCode($code));
 
-        // Just return back, do NOT redirect to password reset form
         return back()->with('status', 'Verification code sent!');
     }
 
@@ -40,28 +46,23 @@ class ForgotPasswordController extends Controller
             'code' => 'required|digits:6',
         ]);
 
-        $user = User::where('email', $request->email)->first();
+        $record = PasswordResetToken::where('email', $request->email)->first();
 
-        if (!$user || !$user->reset_code || !$user->reset_code_expires_at) {
+        if (
+            !$record ||
+            !$record->reset_code ||
+            !$record->reset_code_expires_at ||
+            $record->reset_code !== $request->code ||
+            now()->gt($record->reset_code_expires_at)
+        ) {
             return back()->withErrors(['code' => 'Invalid or expired code.']);
         }
-
-        if ($user->reset_code !== $request->code) {
-            return back()->withErrors(['code' => 'The code is incorrect.']);
-        }
-
-        if (Carbon::parse($user->reset_code_expires_at)->isPast()) {
-            return back()->withErrors(['code' => 'The code has expired.']);
-        }
-
-       
-        $user->reset_code = null;
-        $user->reset_code_expires_at = null;
-        $user->save();
-
        
         session(['password_reset_email' => $request->email]);
 
-        return redirect()->route('password.reset.form');
+        return redirect()->route('password.reset.form', [
+            'email' => $request->email,
+            'reset_code' => $request->code,
+        ]);
     }
 }

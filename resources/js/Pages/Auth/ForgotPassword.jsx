@@ -57,7 +57,7 @@ const ForgotPassword = () => {
             onSuccess: () => {
                 window.location.href = route('password.reset.form', {
                     email: data.email,
-                    token: otp.join(''),
+                    reset_code: otp.join(''), // ✅ Use reset_code
                 });
             },
             onError: () => {
@@ -82,11 +82,8 @@ const ForgotPassword = () => {
                     <div className="flex flex-col items-center">
                         <img src={iroLogo} alt="Logo" className="h-16 w-16 mb-4" />
                         <h2 className="mt-6 text-center text-4xl font-extrabold text-gray-900">
-                            <span className="text-blue-600">Reset</span> Account password
+                            <span className="text-blue-600">Reset</span> Account Password
                         </h2>
-                        <p className="mt-2 text-center text-sm text-gray-600">
-                            Forgot your password?
-                        </p>
                     </div>
 
                     <form className="mt-8 space-y-6" onSubmit={step === 1 ? handleSendCode : handleVerifyCode}>

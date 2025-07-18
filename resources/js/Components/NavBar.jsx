@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { router } from '@inertiajs/react';
 import { usePage } from '@inertiajs/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { motion } from 'framer-motion';
+// import { motion } from 'framer-motion';
 import { useEffect } from 'react';
 import { faBell, faEnvelope, faUser, faRightFromBracket, faToolbox } from '@fortawesome/free-solid-svg-icons';
 
@@ -13,17 +13,17 @@ export default function NavBar({ auth }) {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [showLogoutModal, setShowLogoutModal] = useState(false);
 
-    const Section = ({ children }) => (
-        <motion.div
-            initial={{ opacity: 0, y: 80 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 1.2, ease: 'easeOut' }}
-            className="my-24"
-        >
-            {children}
-        </motion.div>
-    );
+    // const Section = ({ children }) => (
+    //     <motion.div
+    //         initial={{ opacity: 0, y: 80 }}
+    //         whileInView={{ opacity: 1, y: 0 }}
+    //         viewport={{ once: true, amount: 0.2 }}
+    //         transition={{ duration: 1.2, ease: 'easeOut' }}
+    //         className="my-24"
+    //     >
+    //         {children}
+    //     </motion.div>
+    // );
 
     const handleSmoothScroll = (e, targetId) => {
         e.preventDefault();

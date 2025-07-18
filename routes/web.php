@@ -49,7 +49,7 @@ Route::post('/verify-reset-code', [ForgotPasswordController::class, 'verifyCode'
 Route::get('/reset-password-form', function (\Illuminate\Http\Request $request) {
     return Inertia::render('Auth/ConfirmPassword', [
         'email' => $request->query('email'),
-        'token' => $request->query('token'),
+        'reset_code' => $request->query('reset_code'),
     ]);
 })->name('password.reset.form');
 

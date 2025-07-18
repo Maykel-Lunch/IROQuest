@@ -9,14 +9,14 @@ import iroLogo from '@/assets/IROLogo.png';
 
 export default function ConfirmPassword() {
 
-    const { email, token } = usePage().props;
+    const { email, reset_code } = usePage().props;
 
 
     const [showNewPassword, setShowNewPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
     const { data, setData, post, processing, errors, reset } = useForm({
-        token: token,
+        reset_code: reset_code, // This should be the 6-digit code from the URL/props
         email: email,
         password: '',
         password_confirmation: '',
@@ -25,19 +25,22 @@ export default function ConfirmPassword() {
 
     const submit = (e) => {
         e.preventDefault();
-
-        // This route should correspond to your backend's password reset endpoint.
-        // In Laravel Fortify, this is typically 'password.store' after the user
-        // has clicked a reset link.
+        
         post(route('password.store'), {
+            reset_code: reset_code,
+            email: email,
+            password: data.password,
+            password_confirmation: data.password_confirmation
+        }, {
             onSuccess: () => {
-                reset('password', 'password_confirmation');
-                Inertia.visit(route('welcome')); 
-            },
-            onError: (errors) => {
-                console.error("Errors occurred:", errors);
-                console.log("Data submitted:", data);
-            },
+                // Force reload auth state
+                Inertia.reload({
+                    only: ['auth.user'],
+                    onFinish: () => {
+                        window.location.href = route('welcome');
+                    }
+                });
+            }
         });
     };
 
