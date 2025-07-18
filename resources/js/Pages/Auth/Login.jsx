@@ -15,6 +15,7 @@ export default function Login({ status, canResetPassword }) {
         remember: false,
     });
 
+
     const submit = (e) => {
         e.preventDefault();
 
@@ -91,7 +92,7 @@ export default function Login({ status, canResetPassword }) {
 
                     {canResetPassword && (
                         <Link
-                            href={route('password.request')}
+                            href={route('password.request', { email: data.email })}
                             className="rounded-md text-sm text-gray-600 underline
                                     hover:text-red-600     
                                     focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2
@@ -102,6 +103,7 @@ export default function Login({ status, canResetPassword }) {
                             Forgot your password?
                         </Link>
                     )}
+
                 </div>
 
                 <PrimaryButton className="mt-6 w-full justify-center" disabled={processing}>
