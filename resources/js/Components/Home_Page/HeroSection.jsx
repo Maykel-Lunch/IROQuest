@@ -6,7 +6,7 @@ import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 
 export default function HeroSection() {
     return (
-        <section className="relative bg-cover bg-center min-h-[500px] md:min-h-[600px] lg:min-h-[700px] flex items-center justify-center p-4 shadow-lg" >
+        <section className="relative bg-cover bg-center min-h-[500px] md:min-h-[600px] lg:min-h-[700px] flex items-center justify-center p-4 shadow-lg" id="home">
             <img src={buTorch} alt="BU Torch" className="absolute inset-0 w-full h-full object-cover opacity-70" />
 
             <div className="absolute inset-0 bg-white mix-blend-multiply opacity-66"></div>
@@ -44,11 +44,12 @@ export default function HeroSection() {
 
                     {/* Track Your Application Button */}
                     <button
-                        className="bg-orange-400 border-2 border-orange-300 hover:bg-orange-400 hover:text-bolder text-bold font-semibold py-3 px-8 rounded-full transition duration-300 ease-in-out transform hover:scale-105 shadow-lg"
-                        onClick={() => console.log('Track Your Application clicked!')} // Placeholder for actual navigation
-                    >
+                        className="bg-slate-500 hover:bg-slate-600 text-gray font-semibold py-3 px-8 rounded-full transition duration-300 ease-in-out transform hover:scale-105 shadow-lg"
+                        onClick={() => console.log('Track Your Application clicked!')}
+                        >
                         Track Your Application
                     </button>
+
                 </div>
 
             </div>

@@ -5,6 +5,7 @@ import { router } from '@inertiajs/react';
 import { usePage } from '@inertiajs/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { motion } from 'framer-motion';
+import { useEffect } from 'react';
 import { faBell, faEnvelope, faUser, faRightFromBracket, faToolbox } from '@fortawesome/free-solid-svg-icons';
 
 export default function NavBar({ auth }) {
@@ -32,9 +33,35 @@ export default function NavBar({ auth }) {
         }
     };
 
+    const [activeSection, setActiveSection] = useState('');
+
+            useEffect(() => {
+            const sectionIds = ['about', 'achievements', 'services', 'news', 'faqs'];
+            const observers = [];
+
+            sectionIds.forEach((id) => {
+                const section = document.getElementById(id);
+                if (section) {
+                    const observer = new IntersectionObserver(
+                        ([entry]) => {
+                            if (entry.isIntersecting) {
+                                setActiveSection(id);
+                            }
+                        },
+                        { threshold: 0.6 }
+                    );
+                    observer.observe(section);
+                    observers.push(observer);
+                }
+            });
+
+            return () => {
+                observers.forEach((observer) => observer.disconnect());
+            };
+        }, []);
 
     return (
-        <nav className="bg-[#101f41] px-8 py-3 flex items-center justify-between">
+       <nav className="bg-[#101f41] px-8 py-3 flex items-center justify-between sticky top-0 z-50">
             {/* Left: Logo and Title */}
             <Link href="/" className="flex items-center space-x-4">
                 <img src={buLogo} alt="BU Logo" className="h-12 w-12" />
@@ -53,41 +80,72 @@ export default function NavBar({ auth }) {
                     <>
                         {/* okay na ba ganito yung animation for user accesibility */}
                         <div className="flex space-x-8 text-white text-sm font-bold">
+
+                            {/* Pwede ba natin alisin yung achievements, same man lang sila ng question */}
+                            {/* <a
+                                href="#achievements"
+                                onClick={e => handleSmoothScroll(e, 'achievements')}
+                                className={`relative transition-all duration-300 text-white font-bold
+                                    after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5
+                                    after:bg-white after:transition-all after:duration-300
+                                    ${activeSection === 'achievements' ? 'after:w-full' : 'after:w-0'}`}
+                                >
+                                Achievements
+                            </a> */}
+
+                            <a
+                                href="#home"
+                                onClick={e => handleSmoothScroll(e, 'home')}
+                                className={`relative transition-all duration-300 text-white font-bold
+                                    after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5
+                                    after:bg-white after:transition-all after:duration-300
+                                    ${activeSection === 'home' ? 'after:w-full' : 'after:w-0'}`}
+                                >
+                                Home
+                            </a>
+
                             <a
                                 href="#about"
                                 onClick={e => handleSmoothScroll(e, 'about')}
-                                className="relative text-white transition-all duration-300
-                                        after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-0 after:bg-white
-                                        hover:after:w-full after:transition-all after:duration-300"
-                            >
+                                className={`relative transition-all duration-300 text-white font-bold
+                                    after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5
+                                    after:bg-white after:transition-all after:duration-300
+                                    ${activeSection === 'about' ? 'after:w-full' : 'after:w-0'}`}
+                                >
                                 About Us
                             </a>
+
+                            
+
                             <a
-                                href="#achievements"
-                                onClick={e => handleSmoothScroll(e, 'achievements')}
-                                className="relative text-white transition-all duration-300
-                                        after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-0 after:bg-white
-                                        hover:after:w-full after:transition-all after:duration-300"
+                                href="#services"
+                                onClick={e => handleSmoothScroll(e, 'services')}
+                                className={`relative transition-all duration-300 text-white font-bold
+                                    after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5
+                                    after:bg-white after:transition-all after:duration-300
+                                    ${activeSection === 'services' ? 'after:w-full' : 'after:w-0'}`}
                             >
-                                Achievements
+                               Services
                             </a>
                             <a
                                 href="#news"
                                 onClick={e => handleSmoothScroll(e, 'news')}
-                                className="relative text-white transition-all duration-300
-                                        after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-0 after:bg-white
-                                        hover:after:w-full after:transition-all after:duration-300"
+                                className={`relative transition-all duration-300 text-white font-bold
+                                    after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5
+                                    after:bg-white after:transition-all after:duration-300
+                                    ${activeSection === 'news' ? 'after:w-full' : 'after:w-0'}`}
                             >
                                 News
                             </a>
                             <a
                                 href="#faqs"
                                 onClick={e => handleSmoothScroll(e, 'faqs')}
-                                className="relative text-white transition-all duration-300
-                                        after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-0 after:bg-white
-                                        hover:after:w-full after:transition-all after:duration-300"
+                                className={`relative transition-all duration-300 text-white font-bold
+                                    after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5
+                                    after:bg-white after:transition-all after:duration-300
+                                    ${activeSection === 'faqs' ? 'after:w-full' : 'after:w-0'}`}
                             >
-                                FAQ'S
+                                FAQs
                             </a>
                             </div>
 

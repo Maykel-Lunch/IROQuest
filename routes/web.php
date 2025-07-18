@@ -31,6 +31,9 @@ Route::get('auth/google/callback', [GoogleController::class, 'callback'])->name(
 
 Route::post('/register/usertype', [UserTypeController::class, 'store']);
 Route::get('/select-usertype', function () {
+    if (auth()->user()->usertype) {
+        return redirect()->route('welcome');
+    }
     return Inertia::render('Auth/SelectUserType');
 })->middleware('auth')->name('select.usertype');
 

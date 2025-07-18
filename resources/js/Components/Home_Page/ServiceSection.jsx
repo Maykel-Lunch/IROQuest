@@ -15,6 +15,7 @@ export default function ServiceSection() {
             px-4
             md:px-8
         "
+        id="services"
     >
       <div className="max-w-6xl mx-auto"> 
         <h2 className="text-4xl md:text-5xl font-bold mb-12 text-center md:text-left"> 
@@ -55,7 +56,7 @@ export default function ServiceSection() {
         {/* Outbound Mobility Block */}
         <div className="flex flex-col md:flex-row items-center md:items-center justify-between mb-16">
             <div className="md:w-3/4 text-center md:text-left">
-                <h3 className="text-3xl font-semibold mb-4">Inbound Mobility</h3>
+                <h3 className="text-3xl font-semibold mb-4">Outbound Mobility</h3>
                 <p className="text-lg leading-relaxed">
                 Ready to take your learning beyond borders? This section is for BU students and staff who are
                 interested in exploring opportunities abroad—whether it's studying at a partner university,
