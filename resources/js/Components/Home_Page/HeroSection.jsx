@@ -26,9 +26,14 @@ export default function HeroSection() {
 
             <div className="relative z-10 text-white">
                 <h1 className="font-raleway text-3xl sm:text-4xl md:text-5xl font-extrabold lg:text-6xl leading-tight mb-6 drop-shadow-2xl text-center text-black">
-                    Welcome to the Official Website of the <br />
-                    <span style={{ color: '#0F4C81' }}>BICOL UNIVERSITY</span>{' '} <br />
-                    <span style={{ color: '#FE7800' }}>International Relations Office</span>
+                    <p className="font-normal text-5xl">Welcome to the Official Website of the <br /></p>
+                    <span>
+                        <span style={{ color: '#0F4C81' }}>BICOL</span>{' '}
+                        <span style={{ color: '#FE7800' }}>UNIVERSITY</span>
+                    </span>
+                    <br />
+                    <span style={{ color: '#000000' }}>International Relations Office</span>
+
                 </h1>
 
 
@@ -36,7 +41,7 @@ export default function HeroSection() {
                 <div className="flex flex-col sm:flex-row justify-center gap-4">
                     {/* Apply Now Button */}
                     <button
-                        className="bg-orange-600 hover:bg-orange-700 text-white font-semibold py-3 px-8 rounded-full transition duration-300 ease-in-out transform hover:scale-105 shadow-lg"
+                        className="bg-orange-600 hover:bg-orange-700 text-gray-100 font-semibold py-3 px-8 rounded-full transition duration-300 ease-in-out transform hover:scale-105 shadow-lg"
                         onClick={() => console.log('Apply Now clicked!')} // Placeholder for actual navigation
                     >
                         Apply Now
@@ -44,7 +49,7 @@ export default function HeroSection() {
 
                     {/* Track Your Application Button */}
                     <button
-                        className="bg-slate-500 hover:bg-slate-600 text-gray font-semibold py-3 px-8 rounded-full transition duration-300 ease-in-out transform hover:scale-105 shadow-lg"
+                        className="bg-orange-400 hover:bg-orange-500 text-gray-100 border border-orange-400 font-semibold py-3 px-8 rounded-full transition duration-300 ease-in-out transform hover:scale-105 shadow-lg"
                         onClick={() => console.log('Track Your Application clicked!')}
                         >
                         Track Your Application

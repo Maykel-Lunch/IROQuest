@@ -31,7 +31,7 @@ export default function Register() {
 
             <div className="flex flex-col items-center justify-center mb-6">
                 <h1 className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-                     Register
+                     Create an Account
                 </h1>
             </div>
 

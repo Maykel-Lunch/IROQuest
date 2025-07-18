@@ -68,8 +68,8 @@ export default function Login({ status, canResetPassword }) {
                         name="password"
                         value={data.password}
                         className="mt-1 block w-full"
-                        placeholder="Password"
-                        autoComplete="current-password"
+                        autoComplete="new-password" 
+                        placeholder="Password" 
                         onChange={(e) => setData('password', e.target.value)}
                     />
 

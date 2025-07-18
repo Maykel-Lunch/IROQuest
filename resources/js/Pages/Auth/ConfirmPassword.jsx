@@ -62,40 +62,53 @@ export default function ConfirmPassword() {
 
                 <form onSubmit={submit}>
                     
-                    <div className="mb-6">
-                        <TextInput
+                    <div className="relative mb-6">
+                        <input
                             id="password"
                             type="password"
                             name="password"
                             value={data.password}
                             onChange={(e) => setData('password', e.target.value)}
-                            className="mt-1 block w-full"
+                            className="peer placeholder-transparent mt-1 block w-full border border-gray-300 rounded-md px-3 pt-5 pb-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                             autoComplete="new-password"
                             required
                             placeholder="New Password"
                         />
+                        <label
+                            htmlFor="password"
+                            className="absolute left-3 top-2 text-gray-500 text-sm transition-all duration-200 peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:top-2 peer-focus:text-sm peer-focus:text-blue-500"
+                        >
+                            New Password
+                        </label>
                         {errors.password && (
                             <div className="text-red-600 text-sm mt-1 text-left">{errors.password}</div>
                         )}
-
                     </div>
 
-                    <div className="mb-6">
-                        <TextInput
+
+                    <div className="relative mb-6">
+                        <input
                             id="password_confirmation"
                             type="password"
                             name="password_confirmation"
                             value={data.password_confirmation}
                             onChange={(e) => setData('password_confirmation', e.target.value)}
-                            className="mt-1 block w-full"
+                            className="peer placeholder-transparent mt-1 block w-full border border-gray-300 rounded-md px-3 pt-5 pb-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                             autoComplete="new-password"
                             required
                             placeholder="Confirm Password"
                         />
+                        <label
+                            htmlFor="password_confirmation"
+                            className="absolute left-3 top-2 text-gray-500 text-sm transition-all duration-200 peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:top-2 peer-focus:text-sm peer-focus:text-blue-500"
+                        >
+                            Confirm Password
+                        </label>
                         {errors.password_confirmation && (
                             <div className="text-red-600 text-sm mt-1 text-left">{errors.password_confirmation}</div>
                         )}
                     </div>
+
 
                     <button
                         type="submit"

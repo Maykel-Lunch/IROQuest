@@ -80,13 +80,13 @@ const ForgotPassword = () => {
             <div className="min-h-screen bg-gray-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
                 <div className="max-w-md w-full bg-white p-8 rounded-xl shadow-lg">
                     <div className="flex flex-col items-center">
-                        <img src={iroLogo} alt="Logo" className="h-16 w-16 mb-4" />
+                        <img src={iroLogo} alt="Logo" className="h-24 w-24 mb-2" />
                         <h2 className="mt-6 text-center text-4xl font-extrabold text-gray-900">
                             <span className="text-blue-600">Reset</span> Account Password
                         </h2>
                     </div>
 
-                    <form className="mt-8 space-y-6" onSubmit={step === 1 ? handleSendCode : handleVerifyCode}>
+                    <form className="mt-4 space-y-6" onSubmit={step === 1 ? handleSendCode : handleVerifyCode}>
                         {step === 1 && (
                             <>
                                 <div>
