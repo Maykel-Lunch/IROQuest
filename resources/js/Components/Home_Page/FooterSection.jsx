@@ -3,7 +3,7 @@ import buLogo from '@/assets/BULogo.png';
 
 export default function FooterSection() {
   return (
-    <footer className="bg-blue-900 text-gray-200 py-12 px-4 md:px-8">
+    <footer className="bg-[#132C4C] text-gray-200 py-12 px-4 md:px-8">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
 
         {/* Column 1: Logo & Contact Information */}

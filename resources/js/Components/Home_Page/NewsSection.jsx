@@ -13,7 +13,8 @@ export default function NewsSection() {
         <div className="mb-8">
             {/* Top row: Latest News + horizontal line */}
             <div className="flex items-center mb-2">
-                <h2 className="text-4xl font-bold text-gray-800 mr-4">Latest News</h2>
+               <h2 className="text-4xl font-bold text-[#831E2C] mr-4">Latest News</h2>
+               
                 <div className="flex-grow border-t border-gray-300 dark:border-gray-700"></div>
             </div>
 

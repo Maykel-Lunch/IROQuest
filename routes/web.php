@@ -8,6 +8,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\ResetNewPasswordController;
 use Inertia\Inertia;
+use App\Http\Controllers\InboundServicesController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -56,3 +57,13 @@ Route::get('/reset-password-form', function (\Illuminate\Http\Request $request) 
 Route::post('/reset-password', [ResetNewPasswordController::class, 'store'])->name('password.store');
 
 require __DIR__.'/auth.php';
+
+
+
+Route::get('/inbound-services', function () {
+    return Inertia::render('InboundServices');
+})->name('inbound.services');
+Route::get('/outbound-services', function () {
+    return Inertia::render('OutboundServices');
+})->name('outbound.services');
+
