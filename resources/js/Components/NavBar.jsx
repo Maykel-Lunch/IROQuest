@@ -1,29 +1,16 @@
 import { Link } from '@inertiajs/react';
 import buLogo from '@/assets/BULogo.png';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { router } from '@inertiajs/react';
 import { usePage } from '@inertiajs/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { motion } from 'framer-motion';
-import { useEffect } from 'react';
 import { faBell, faEnvelope, faUser, faRightFromBracket, faToolbox } from '@fortawesome/free-solid-svg-icons';
 
 export default function NavBar({ auth }) {
     const { component } = usePage();
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [showLogoutModal, setShowLogoutModal] = useState(false);
-
-    // const Section = ({ children }) => (
-    //     <motion.div
-    //         initial={{ opacity: 0, y: 80 }}
-    //         whileInView={{ opacity: 1, y: 0 }}
-    //         viewport={{ once: true, amount: 0.2 }}
-    //         transition={{ duration: 1.2, ease: 'easeOut' }}
-    //         className="my-24"
-    //     >
-    //         {children}
-    //     </motion.div>
-    // );
 
     const handleSmoothScroll = (e, targetId) => {
         e.preventDefault();
@@ -35,33 +22,33 @@ export default function NavBar({ auth }) {
 
     const [activeSection, setActiveSection] = useState('');
 
-            useEffect(() => {
-            const sectionIds = ['about', 'achievements', 'services', 'news', 'faqs'];
-            const observers = [];
+    useEffect(() => {
+        const sectionIds = ['about', 'achievements', 'services', 'news', 'faqs'];
+        const observers = [];
 
-            sectionIds.forEach((id) => {
-                const section = document.getElementById(id);
-                if (section) {
-                    const observer = new IntersectionObserver(
-                        ([entry]) => {
-                            if (entry.isIntersecting) {
-                                setActiveSection(id);
-                            }
-                        },
-                        { threshold: 0.6 }
-                    );
-                    observer.observe(section);
-                    observers.push(observer);
-                }
-            });
+        sectionIds.forEach((id) => {
+            const section = document.getElementById(id);
+            if (section) {
+                const observer = new IntersectionObserver(
+                    ([entry]) => {
+                        if (entry.isIntersecting) {
+                            setActiveSection(id);
+                        }
+                    },
+                    { threshold: 0.6 }
+                );
+                observer.observe(section);
+                observers.push(observer);
+            }
+        });
 
-            return () => {
-                observers.forEach((observer) => observer.disconnect());
-            };
-        }, []);
+        return () => {
+            observers.forEach((observer) => observer.disconnect());
+        };
+    }, []);
 
     return (
-       <nav className="bg-[#101f41] px-8 py-3 flex items-center justify-between sticky top-0 z-50">
+        <nav className="bg-[#101f41] px-8 py-3 flex items-center justify-between sticky top-0 z-50">
             {/* Left: Logo and Title */}
             <Link href="/" className="flex items-center space-x-4">
                 <img src={buLogo} alt="BU Logo" className="h-12 w-12" />
@@ -76,152 +63,123 @@ export default function NavBar({ auth }) {
 
             {/* Right */}
             <div className="flex items-center space-x-8"> 
-                {component === 'Welcome' ? (
-                    <>
-                        {/* okay na ba ganito yung animation for user accesibility */}
-                        <div className="flex space-x-8 text-white text-sm font-bold">
+                {/* {component === 'Welcome' ? ( */}
+                <>
+                    {/* Navigation Links */}
+                    <div className="flex space-x-8 text-white text-sm font-bold">
+                        <a
+                            href="#home"
+                            onClick={e => handleSmoothScroll(e, 'home')}
+                            className={`relative transition-all duration-300 text-white font-bold
+                            after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5
+                            after:bg-white after:transition-all after:duration-300
+                            ${activeSection === 'home' ? 'after:w-full' : 'after:w-0'}`}
+                        >
+                            Home
+                        </a>
+                        <a
+                            href="#about"
+                            onClick={e => handleSmoothScroll(e, 'about')}
+                            className={`relative transition-all duration-300 text-white font-bold
+                            after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5
+                            after:bg-white after:transition-all after:duration-300
+                            ${activeSection === 'about' ? 'after:w-full' : 'after:w-0'}`}
+                        >
+                            About Us
+                        </a>
+                        <a
+                            href="#services"
+                            onClick={e => handleSmoothScroll(e, 'services')}
+                            className={`relative transition-all duration-300 text-white font-bold
+                            after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5
+                            after:bg-white after:transition-all after:duration-300
+                            ${activeSection === 'services' ? 'after:w-full' : 'after:w-0'}`}
+                        >
+                            Services
+                        </a>
+                        <a
+                            href="#news"
+                            onClick={e => handleSmoothScroll(e, 'news')}
+                            className={`relative transition-all duration-300 text-white font-bold
+                            after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5
+                            after:bg-white after:transition-all after:duration-300
+                            ${activeSection === 'news' ? 'after:w-full' : 'after:w-0'}`}
+                        >
+                            News
+                        </a>
+                        <a
+                            href="#faqs"
+                            onClick={e => handleSmoothScroll(e, 'faqs')}
+                            className={`relative transition-all duration-300 text-white font-bold
+                            after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5
+                            after:bg-white after:transition-all after:duration-300
+                            ${activeSection === 'faqs' ? 'after:w-full' : 'after:w-0'}`}
+                        >
+                            FAQs
+                        </a>
+                    </div>
 
-                            {/* Pwede ba natin alisin yung achievements, same man lang sila ng question */}
-                            {/* <a
-                                href="#achievements"
-                                onClick={e => handleSmoothScroll(e, 'achievements')}
-                                className={`relative transition-all duration-300 text-white font-bold
-                                    after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5
-                                    after:bg-white after:transition-all after:duration-300
-                                    ${activeSection === 'achievements' ? 'after:w-full' : 'after:w-0'}`}
+                    {/* Authenticated: Profile Dropdown */}
+                    <div className="relative">
+                        {auth?.user ? (
+                            <div>
+                                <button
+                                    type="button"
+                                    onClick={() => setDropdownOpen(!dropdownOpen)}
+                                    className="flex items-center text-white px-4 py-2 rounded-xl transition space-x-3 relative"
                                 >
-                                Achievements
-                            </a> */}
-
-                            <a
-                                href="#home"
-                                onClick={e => handleSmoothScroll(e, 'home')}
-                                className={`relative transition-all duration-300 text-white font-bold
-                                    after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5
-                                    after:bg-white after:transition-all after:duration-300
-                                    ${activeSection === 'home' ? 'after:w-full' : 'after:w-0'}`}
-                                >
-                                Home
-                            </a>
-
-                            <a
-                                href="#about"
-                                onClick={e => handleSmoothScroll(e, 'about')}
-                                className={`relative transition-all duration-300 text-white font-bold
-                                    after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5
-                                    after:bg-white after:transition-all after:duration-300
-                                    ${activeSection === 'about' ? 'after:w-full' : 'after:w-0'}`}
-                                >
-                                About Us
-                            </a>
-
-                            
-
-                            <a
-                                href="#services"
-                                onClick={e => handleSmoothScroll(e, 'services')}
-                                className={`relative transition-all duration-300 text-white font-bold
-                                    after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5
-                                    after:bg-white after:transition-all after:duration-300
-                                    ${activeSection === 'services' ? 'after:w-full' : 'after:w-0'}`}
-                            >
-                               Services
-                            </a>
-                            <a
-                                href="#news"
-                                onClick={e => handleSmoothScroll(e, 'news')}
-                                className={`relative transition-all duration-300 text-white font-bold
-                                    after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5
-                                    after:bg-white after:transition-all after:duration-300
-                                    ${activeSection === 'news' ? 'after:w-full' : 'after:w-0'}`}
-                            >
-                                News
-                            </a>
-                            <a
-                                href="#faqs"
-                                onClick={e => handleSmoothScroll(e, 'faqs')}
-                                className={`relative transition-all duration-300 text-white font-bold
-                                    after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5
-                                    after:bg-white after:transition-all after:duration-300
-                                    ${activeSection === 'faqs' ? 'after:w-full' : 'after:w-0'}`}
-                            >
-                                FAQs
-                            </a>
-                            </div>
-
-
-                        {/* Authenticated: Profile Dropdown */}
-                        <div className="relative">
-                            {auth?.user ? (
-                                <div>
-                                    <button
-                                        type="button"
-                                        onClick={() => setDropdownOpen(!dropdownOpen)}
-                                        className="flex items-center text-white px-4 py-2 rounded-xl transition space-x-3 relative"
-                                    >
-                                        
-                                        {/* Profile with initial and student label underneath */}
-                                        <div className="flex flex-col items-center relative">
-                                            {/* Profile Initial Circle */}
-                                            <div className="w-10 h-10 rounded-full bg-white text-blue-600 font-bold flex items-center justify-center text-base shadow">
-                                                {auth.user.first_name.charAt(0)}
-                                            </div>
-
-                                            {/* User Type Badge */}
-                                            <span
-                                                className={`absolute bottom-0 text-[10px] text-white px-2 py-[1px] rounded-full font-semibold shadow-sm ${
-                                                    auth.user.role === 'admin'
-                                                        ? 'bg-purple-700'
-                                                        : auth.user.usertype === 'guest'
-                                                        ? 'bg-orange-500'
-                                                        : auth.user.usertype === 'bu student'
-                                                        ? 'bg-blue-600'
-                                                        : auth.user.usertype === 'foreign student'
-                                                        ? 'bg-green-600'
-                                                        : auth.user.usertype === 'faculty'
-                                                        ? 'bg-yellow-500'
-                                                        : 'bg-gray-500'
-                                                }`}
-                                                style={{ transform: 'translateY(60%)' }}
-                                            >
-                                                {auth.user.role === 'admin' ? 'ADMIN' : auth.user.usertype.toUpperCase()}
-                                            </span>
-
+                                    {/* Profile with initial and badge */}
+                                    <div className="flex flex-col items-center relative">
+                                        <div className="w-10 h-10 rounded-full bg-white text-blue-600 font-bold flex items-center justify-center text-base shadow">
+                                            {auth.user.first_name.charAt(0)}
                                         </div>
+                                        <span
+                                            className={`absolute bottom-0 text-[10px] text-white px-2 py-[1px] rounded-full font-semibold shadow-sm ${
+                                                auth.user.role === 'admin'
+                                                    ? 'bg-purple-700'
+                                                    : auth.user.usertype === 'guest'
+                                                    ? 'bg-orange-500'
+                                                    : auth.user.usertype === 'bu student'
+                                                    ? 'bg-blue-600'
+                                                    : auth.user.usertype === 'foreign student'
+                                                    ? 'bg-green-600'
+                                                    : auth.user.usertype === 'faculty'
+                                                    ? 'bg-yellow-500'
+                                                    : 'bg-gray-500'
+                                            }`}
+                                            style={{ transform: 'translateY(60%)' }}
+                                        >
+                                            {auth.user.role === 'admin' ? 'ADMIN' : auth.user.usertype.toUpperCase()}
+                                        </span>
+                                    </div>
 
-                                        {/* Name and dropdown arrow */}
-                                        <div className="flex items-center space-x-1">
-                                            <span className="font-medium">{auth.user.first_name}</span>
-                                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                                            </svg>
-                                        </div>
-                                    </button>
+                                    <div className="flex items-center space-x-1">
+                                        <span className="font-medium">{auth.user.first_name}</span>
+                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </div>
+                                </button>
 
-                                    {dropdownOpen && (
-                                        <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg z-50">
-                                            {/* Show these only if role is 'client' */}
-                                            {auth.user.role === 'client' && (
+                                {dropdownOpen && (
+                                    <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg z-50">
+                                        {auth.user.role === 'client' && (
                                             <>
                                                 <Link href="/notifications" className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:bg-gray-100">
-                                                <FontAwesomeIcon icon={faBell} />
-                                                Notifications
+                                                    <FontAwesomeIcon icon={faBell} />
+                                                    Notifications
                                                 </Link>
                                                 <Link href="/messages" className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:bg-gray-100">
-                                                <FontAwesomeIcon icon={faEnvelope} />
-                                                Messaging
+                                                    <FontAwesomeIcon icon={faEnvelope} />
+                                                    Messaging
                                                 </Link>
                                             </>
-                                            )}
-
-                                            {/* Profile visible for all */}
-                                            <Link href="/profile" className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                        )}
+                                        <Link href="/profile" className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:bg-gray-100">
                                             <FontAwesomeIcon icon={faUser} />
                                             Profile
-                                            </Link>
-
-                                            {/* Admin tools visible only to admin */}
-                                            {auth.user.role === 'admin' && (
+                                        </Link>
+                                        {auth.user.role === 'admin' && (
                                             <Link
                                                 href={route('admin.dashboard')}
                                                 className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:bg-gray-100"
@@ -229,41 +187,29 @@ export default function NavBar({ auth }) {
                                                 <FontAwesomeIcon icon={faToolbox} />
                                                 Admin Tools
                                             </Link>
-                                            )}
-
-                                            {/* Logout button for everyone */}
-                                            <button
+                                        )}
+                                        <button
                                             type="button"
                                             className="flex items-center gap-2 w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100"
                                             onClick={() => setShowLogoutModal(true)}
-                                            >
+                                        >
                                             <FontAwesomeIcon icon={faRightFromBracket} />
                                             Logout
-                                            </button>
-                                        </div>
-                                    )}
-
-
-                                </div>
-                            ) : (
-                                <Link
-                                    href={route('register')}
-                                    className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-lg font-semibold transition"
-                                >
-                                    Sign In
-                                </Link>
-                            )}
-                        </div>
-                    </>
-                    ) : (
-                        <Link
-                            href="/contact"
-                            className="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 transition"
-                        >
-                            Contact Us
-                        </Link>
-                    )}
-                
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
+                        ) : (
+                            <Link
+                                href={route('register')}
+                                className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-lg font-semibold transition"
+                            >
+                                Sign In
+                            </Link>
+                        )}
+                    </div>
+                </>
+                {/* Removed broken ) : (...) */}
             </div>
 
             {showLogoutModal && (
@@ -281,20 +227,17 @@ export default function NavBar({ auth }) {
                             <button
                                 type="button"
                                 onClick={() => {
-                                    setShowLogoutModal(false); // Close the modal first
-                                    router.post(route('logout')); // Then send logout request
+                                    setShowLogoutModal(false);
+                                    router.post(route('logout'));
                                 }}
                                 className="px-4 py-2 rounded-md bg-red-600 text-white hover:bg-red-700 transition"
                             >
                                 Logout
                             </button>
-
-
                         </div>
                     </div>
                 </div>
             )}
-
         </nav>
     );
 }

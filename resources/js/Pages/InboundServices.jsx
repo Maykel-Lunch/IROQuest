@@ -1,25 +1,16 @@
 import { Link } from "@inertiajs/react";
 import NavLink from "@/Components/NavLink";
+import NavBar from "@/Components/NavBar";
 import FooterSection from "@/Components/Home_Page/FooterSection";
 
-export default function InboundServices() {
+export default function InboundServices({ auth, user }) {
+
+   // Use either 'auth.user' or 'user' depending on your controller
+  const navUser = auth?.user || user || null;
+
   return (
     <>
-      {/* Navigation Bar */}
-      <nav className="bg-blue-900 text-white py-4">
-        <div className="max-w-7xl mx-auto flex justify-between items-center px-4">
-          <Link href="/" className="text-lg font-bold">
-            Bicol University
-          </Link>
-          <div className="flex space-x-4">
-            <NavLink href="/inbound-services" active={true}>
-              Inbound Services
-            </NavLink>
-            <NavLink href="/outbound-services">Outbound Services</NavLink>
-            <NavLink href="/contact">Contact</NavLink>
-          </div>
-        </div>
-      </nav>
+      <NavBar auth={{ user: navUser }} />
 
       {/* Main Content */}
       <section className="bg-gray-100 py-8 px-4 md:px-8">
